@@ -9,8 +9,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/dra
 })
 export class DropComponent implements OnInit{
   title = 'work';
-  showTest = false;
-  shosProg = false;
   makeSearch = '';
 
   constructor(public genService: GenService){ 
@@ -33,15 +31,19 @@ export class DropComponent implements OnInit{
   addItems(newItem: any){
     switch (newItem.progress) {
       case 'Task need to do':
+        newItem.selectedProg = 'Task need to do'
         this.todoItems = [...this.todoItems, newItem];
         break;
       case 'Task in progress':
+        newItem.selectedProg = 'Task in progress'
         this.inProgressItems = [...this.inProgressItems, newItem];
         break;
       case 'Task is done':
+        newItem.selectedProg = 'Task is done'
         this.testItems = [...this.testItems, newItem];
         break;
       case 'Task in production':
+        newItem.selectedProg = 'Task in production'
         this.prodItems = [...this.prodItems, newItem];
         break;
     }
@@ -92,7 +94,6 @@ export class DropComponent implements OnInit{
 
   deleteTask(){
       let selectedList: any[];
-  
       switch (this.selectedTask.selectedProg) {
         case 'Task need to do':
           console.log('Task need to do')
@@ -157,7 +158,6 @@ export class DropComponent implements OnInit{
       this.saveItem()
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
-      console.log(event.container.id)
       switch(event.container.id){
         case 'test-list':
           list[event.currentIndex].selectedProg = 'Task in test'

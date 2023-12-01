@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropComponent } from './shared/drop/drop.component';
 import { FilterItemsPipe } from './filter-items.pipe';
+import { SelectorComponent } from './shared/window/selector/selector.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FilterItemsPipe } from './filter-items.pipe';
     WindowComponent,
     DropComponent,
     FilterItemsPipe,
+    SelectorComponent,
   ],
   imports: [
     BrowserModule,

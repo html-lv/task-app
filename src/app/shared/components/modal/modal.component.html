@@ -13,20 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col p-2">
-            <label for="progress" class="text-center">Progress</label>
-            <select name="progress" formControlName="progress" id="prog" class="border-2 border-gray-700 p-3" [(ngModel)]="task.selectedProg" required>
-                <option value="Task need to do">To do</option>
-                <option value="Task in progress">In progress</option>
-                <option value="Task is done">Test</option>
-                <option value="Task in production">Prod</option>
-            </select>
-            <div *ngIf="itemForm.controls['progress'].invalid && (itemForm.controls['progress'].touched || itemForm.controls['progress'].dirty)">
-                <div *ngIf="itemForm.controls['progress'].hasError('required')">
-                    <p class="text-center text-red-500">Progress status is required</p>
-                </div>
-            </div>
-        </div>
+        <app-selector [selectedProgress]="selectedProg" (progressSelected)="onProgressSelected($event)" name="progress"></app-selector>
         <div class="">
             <p class="text-center">Test description</p>
             <input formControlName="description" type="text" class="w-full border-2 border-gray-900 h-[50px]" id="description" name="description" [(ngModel)]="task.description" required>
