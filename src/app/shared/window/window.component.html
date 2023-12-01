@@ -1,0 +1,57 @@
+<div id="cont">
+    <form (ngSubmit)="updateTask()">
+      <div class="h-[10%] bg-gray-500 rounded-sm flex items-center justify-center text-white text-2xl p-2">
+        <p>Edit Task</p>
+      </div>
+      <div class="h-fit grid-rows-2">
+        <div *ngIf="dataToEdit && dataToEdit.length > 0">
+          <div *ngFor="let item of dataToEdit; let i = index">
+          </div>
+        </div>
+        <div *ngIf="selectedTask" class="grid grid-row-4 text-center gap-4">
+          <div class="border border-gray-900 p-1">
+            <p>Name of the task</p>
+            <p>{{ selectedTask.name }}</p>
+            <input type="text" class="w-full border-2 border-gray-900" *ngIf="isEdited" [(ngModel)]="selectedTask.name" name="name">
+          </div>
+          <div class="border border-gray-900 p-1">
+            <p>Task description</p>
+            <p>{{ selectedTask.description }}</p>
+            <input type="text" class="w-full border-2 border-gray-900" *ngIf="isEdited" [(ngModel)]="selectedTask.description" name="progress">
+          </div>
+          <div class="border border-gray-900 p-1"> 
+            <p>Task progress</p>
+            <p>{{ selectedTask.selectedProg }}</p>
+            <div *ngIf="isEdited">
+                <select name="progress" id="prog" class="border-2 border-gray-700 p-3" name="description" [(ngModel)]="selectedTask.selectedProg" required>
+                    <option value="Task need to do">To do</option>
+                    <option value="Task in progress">In progress</option>
+                    <option value="Task in test">Test</option>
+                    <option value="Task in production">Prod</option>
+                </select>
+            </div>
+          </div>
+          <div class="border border-gray-900 p-1">
+            <p>Task status</p>
+            <p>{{ selectedTask.selectedProd }}</p>
+            <div *ngIf="isEdited">
+                <select name="status" id="pro" class="border-2 border-gray-700 p-3" [(ngModel)]="selectedTask.selectedProd" required>
+                    <option value="Test is ready">Test ready</option>
+                    <option value="Test passed">Test passed</option>
+                    <option value="Test failed">Test failed</option>
+                </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="h-[10%] flex items-center justify-center gap-5 mt-5">
+        <button class="border-2 border-gray-900 bg-blue-500 px-3 py-2" (click)="openTab()">Edit</button>
+        <button class="border-2 border-gray-900 bg-red-500 px-3 py-2" (click)="deleteTask()">Delete</button>
+        <button (click)="genSer.showEdit = false" class="border-2 border-gray-900 bg-gray-500 px-3 py-2">Close</button>
+        <div *ngIf="isEdited">
+            <button class="border-2 border-gray-900 bg-green-500 px-3 py-2" type="submit">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

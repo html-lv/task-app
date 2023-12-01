@@ -1,0 +1,58 @@
+<div id="cont">
+    <form  [formGroup]="itemForm" (ngSubmit)="addTask()" >
+    <div class="h-[10%] bg-gray-500 rounded-sm flex items-center justify-center text-white text-2xl p-2">
+        <p>Add Task</p>
+    </div>
+    <div class="h-fit grid-rows-4">
+        <div class="">
+            <p class="text-center">Task</p>
+            <input type="text" formControlName="name" class="w-full border-2 border-gray-900 h-[50px]" id="name" name="name" required [(ngModel)]="task.name">
+            <div *ngIf="itemForm.controls['name'].invalid && (itemForm.controls['name'].touched || itemForm.controls['name'].dirty)">
+                <div *ngIf="itemForm.controls['name'].hasError('required')">
+                    <p class="text-center text-red-500">Name of the task is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col p-2">
+            <label for="progress" class="text-center">Progress</label>
+            <select name="progress" formControlName="progress" id="prog" class="border-2 border-gray-700 p-3" [(ngModel)]="task.selectedProg" required>
+                <option value="Task need to do">To do</option>
+                <option value="Task in progress">In progress</option>
+                <option value="Task is done">Test</option>
+                <option value="Task in production">Prod</option>
+            </select>
+            <div *ngIf="itemForm.controls['progress'].invalid && (itemForm.controls['progress'].touched || itemForm.controls['progress'].dirty)">
+                <div *ngIf="itemForm.controls['progress'].hasError('required')">
+                    <p class="text-center text-red-500">Progress status is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <p class="text-center">Test description</p>
+            <input formControlName="description" type="text" class="w-full border-2 border-gray-900 h-[50px]" id="description" name="description" [(ngModel)]="task.description" required>
+            <div *ngIf="itemForm.controls['description'].invalid && (itemForm.controls['description'].touched || itemForm.controls['description'].dirty)">
+                <div *ngIf="itemForm.controls['description'].hasError('required')">
+                    <p class="text-center text-red-500">Description of the task required</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col p-2">
+            <label for="progress" class="text-center">Status</label>
+            <select name="production" formControlName="status" id="pro" class="border-2 border-gray-700 p-3" [(ngModel)]="task.selectedProd" required>
+                <option value="Test is ready">Test ready</option>
+                <option value="Test passed">Test passed</option>
+                <option value="Test failed">Test failed</option>
+            </select>
+            <div *ngIf="itemForm.controls['status'].invalid && (itemForm.controls['status'].touched || itemForm.controls['status'].dirty)">
+                <div *ngIf="itemForm.controls['status'].hasError('required')">
+                    <p class="text-center text-red-500">Task option is required</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="h-[10%] flex items-center justify-center gap-5 mt-5">
+        <button class="border-2 border-gray-900 bg-green-500 px-3 py-2" type="submit">Add</button>
+        <button (click)="genSer.showModal = false" class="border-2 border-gray-900 bg-red-500 px-3 py-2">Cancel</button>
+    </div>
+ </form>
+ </div>
