@@ -1,8 +1,7 @@
 <app-modal *ngIf="genService.showModal" (newItemEvent)="addItems($event)"></app-modal>
-<app-window *ngIf="genService.showEdit" [dataToEdit]="items" [selectedTask]="selectedTask" (taskUpdated)="updateTask($event)" (taskDeleted)="deleteTask()"></app-window>
 <div class="w-screen h-screen flex justify-center items-center bg-[#ebebe3]">
-  <div class="w-[80%] h-[50%]">
-    <div class="h-[20%] w-full grid grid-cols-4 border border-gray-700">
+  <div class="w-[80%] h-full">
+    <div class="h-[5%] w-full grid grid-cols-4 border border-gray-700">
       <div (click)="genService.showModal = true" class="bg-[#4a4a48] focus:text-white flex items-center justify-center border-r border-[#ebebe3] hover:opacity-75 hover:text-white cursor-pointer">
         <button>To-Do</button>
       </div>
@@ -21,67 +20,8 @@
         <input type="text" class="border-2 border-gray-700 p-2 px-10" placeholder="Search..." [(ngModel)]="makeSearch">
       </div>
     </div>
-<div class="h-fit w-full border-2 border-gray-700 grid grid-row-2">
-  <div class="h-fit w-full grid grid-cols-4">
-    <div class="text-center p-2">
-      <Button class="bg-gray-600 px-4 rounded text-white" (click)="sortByName()">Sort by name</Button>
-    </div>
-    <div class="text-center p-2">
-      <Button class="bg-gray-600 text-white px-4 rounded" (click)="sortByName()">Sort</Button>
-    </div>
-    <div class="text-center p-2">
-      <Button class="bg-gray-600 text-white px-4 rounded" (click)="sortByTest()">Sort by status</Button>
-    </div>
-    <div class="text-center p-2">
-      <Button class="bg-gray-600 text-white px-4 rounded" (click)="sortByName()">Sort</Button>
-    </div>
+  <div>
+    <app-list [makeSearch]="makeSearch" [todoItems]="todoItems" [inProgressItems]="inProgressItems" [testItems]="testItems" [prodItems]="prodItems"></app-list>
   </div>
-  <div class="h-fit w-full border border-gray-700 grid grid-cols-4" cdkDropListGroup>
-    <div
-        id="todo-list"
-        cdkDropList
-        [cdkDropListData]="todoItems"
-        (cdkDropListDropped)="drop($event,todoItems)"
-        class="border-2 border-gray-700 bg-white">
-        <div *ngFor="let item of todoItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-            <p>{{item.name}}</p>
-            <p>{{item.selectedProg}}</p> 
-        </div>
-    </div>
-          <div       
-              id="in-progress-list"
-              cdkDropList
-              [cdkDropListData]="inProgressItems"
-              (cdkDropListDropped)="drop($event,inProgressItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of inProgressItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300" >
-                  <p>{{item.name}}</p>
-                  <p>{{item.selectedProg}}</p> 
-              </div>
-          </div>
-          <div           
-              id="test-list"
-              cdkDropList
-              [cdkDropListData]="testItems"
-              (cdkDropListDropped)="drop($event,testItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of testItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-                  <p>{{item.name}}</p>
-                  <p [ngStyle]="{'color': item.selectedProd === 'Test failed' ? 'red' : item.selectedProd === 'Test passed' ? 'green' : 'blue'}">{{item.selectedProd}}</p> 
-              </div>
-          </div>
-          <div      
-              id="prod-list"  
-              cdkDropList
-              [cdkDropListData]="prodItems"
-              (cdkDropListDropped)="drop($event,prodItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of prodItems| filterItems:makeSearch ; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-                  <p>{{item.name}}</p>
-                  <p>{{item.selectedProg}}</p> 
-              </div>
-          </div>
-        </div>
-     </div>
-  </div>
+</div>
 </div>

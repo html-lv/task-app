@@ -23,23 +23,14 @@
             <p>Task progress</p>
             <p>{{ selectedTask.selectedProg }}</p>
             <div *ngIf="isEdited">
-                <select name="progress" id="prog" class="border-2 border-gray-700 p-3" name="description" [(ngModel)]="selectedTask.selectedProg" required>
-                    <option value="Task need to do">To do</option>
-                    <option value="Task in progress">In progress</option>
-                    <option value="Task in test">Test</option>
-                    <option value="Task in production">Prod</option>
-                </select>
+              <app-select [selectedProgress]="selectedProg" [selectedStatus]="selectedProd"  [showProgress]="true" (progressSelected)="onProgressSelected($event)" name="progress"></app-select>
             </div>
           </div>
           <div class="border border-gray-900 p-1">
             <p>Task status</p>
             <p>{{ selectedTask.selectedProd }}</p>
             <div *ngIf="isEdited">
-                <select name="status" id="pro" class="border-2 border-gray-700 p-3" [(ngModel)]="selectedTask.selectedProd" required>
-                    <option value="Test is ready">Test ready</option>
-                    <option value="Test passed">Test passed</option>
-                    <option value="Test failed">Test failed</option>
-                </select>
+              <app-select [selectedStatus]="selectedProd"  [selectedProgress]="selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
             </div>
           </div>
         </div>

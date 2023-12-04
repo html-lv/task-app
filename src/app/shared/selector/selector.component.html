@@ -1,0 +1,28 @@
+<form [formGroup]="itemForm">
+<div *ngIf="showProgress" class="flex flex-col p-2">
+    <label for="progress" class="text-center">Progress</label>
+    <select name="progress" formControlName="progress" id="prog" class="border-2 border-gray-700 p-3" [(ngModel)]="selectedProgress" (change)="selectProgress(selectedProgress)" required>
+      <ng-container *ngFor="let option of progressOptions">
+        <option [value]="option.value">{{ option.label }}</option>
+        <div *ngIf="itemForm.controls['progress'].invalid && (itemForm.controls['progress'].touched || itemForm.controls['progress'].dirty)">
+            <div *ngIf="itemForm.controls['progress'].hasError('required')">
+                <p class="text-center text-red-500">Progress of the task required</p>
+            </div>
+        </div>
+      </ng-container>
+    </select>
+</div>
+<div *ngIf="showTask" class="flex flex-col p-2">
+    <label for="status" class="text-center">Status</label>
+    <select name="status" formControlName="status" id="pro" class="border-2 border-gray-700 p-3" [(ngModel)]="selectedStatus" (change)="selectTask(selectedStatus)" required>
+      <ng-container *ngFor="let option of statusOptions">
+        <option [value]="option.value">{{ option.label }}</option>
+        <div *ngIf="itemForm.controls['status'].invalid && (itemForm.controls['status'].touched || itemForm.controls['status'].dirty)">
+            <div *ngIf="itemForm.controls['status'].hasError('required')">
+                <p class="text-center text-red-500">Status of the task required</p>
+            </div>
+        </div>
+      </ng-container>
+    </select>
+</div>
+</form>

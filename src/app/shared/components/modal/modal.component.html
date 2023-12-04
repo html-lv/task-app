@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <app-selector [selectedProgress]="selectedProg" (progressSelected)="onProgressSelected($event)" name="progress"></app-selector>
+        <app-select [selectedProgress]="selectedProg" [selectedStatus]="selectedProd"  [showProgress]="true" (progressSelected)="onProgressSelected($event)" name="progress"></app-select>
         <div class="">
             <p class="text-center">Test description</p>
             <input formControlName="description" type="text" class="w-full border-2 border-gray-900 h-[50px]" id="description" name="description" [(ngModel)]="task.description" required>
@@ -23,19 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col p-2">
-            <label for="progress" class="text-center">Status</label>
-            <select name="production" formControlName="status" id="pro" class="border-2 border-gray-700 p-3" [(ngModel)]="task.selectedProd" required>
-                <option value="Test is ready">Test ready</option>
-                <option value="Test passed">Test passed</option>
-                <option value="Test failed">Test failed</option>
-            </select>
-            <div *ngIf="itemForm.controls['status'].invalid && (itemForm.controls['status'].touched || itemForm.controls['status'].dirty)">
-                <div *ngIf="itemForm.controls['status'].hasError('required')">
-                    <p class="text-center text-red-500">Task option is required</p>
-                </div>
-            </div>
-        </div>
+        <app-select [selectedStatus]="selectedProd"  [selectedProgress]="selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
     </div>
     <div class="h-[10%] flex items-center justify-center gap-5 mt-5">
         <button class="border-2 border-gray-900 bg-green-500 px-3 py-2" type="submit">Add</button>

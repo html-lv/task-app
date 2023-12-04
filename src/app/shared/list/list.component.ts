@@ -1,18 +1,17 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { GenService } from '../services/gen.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-drop',
-  templateUrl: './drop.component.html',
-  styleUrls: ['./drop.component.css'],
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class DropComponent implements OnInit{
+export class ListComponent implements OnInit{
   title = 'work';
   @Input() makeSearch = '';
-  
 
-  constructor(public genService: GenService){ 
+  constructor(public serv: GenService){ 
     this.loadItem();
   }
 
@@ -20,14 +19,14 @@ export class DropComponent implements OnInit{
   }
   
   showAdd(){
-    this.genService.showModal = true;
+    this.serv.showModal = true;
   }
 
-  items: any[] = [];
-  todoItems: any[] = [];
-  inProgressItems: any[] = [];
-  testItems: any[] = [];
-  prodItems: any[] = [];
+  @Input() items: any[] = [];
+  @Input() todoItems: any[] = [];
+  @Input() inProgressItems: any[] = [];
+  @Input() testItems: any[] = [];
+  @Input() prodItems: any[] = [];
 
   addItems(newItem: any){
     switch (newItem.progress) {
@@ -82,9 +81,10 @@ export class DropComponent implements OnInit{
   selectedIndex = 0;
 
   selectItem(item: any, index: number) {
+    console.log(this.selectedTask)
     this.selectedIndex = index;
     this.selectedTask = item;
-    this.genService.showEdit = true;
+    this.serv.showEdit = true;
   }
 
   updateTask(updatedTask: any) {
@@ -92,6 +92,7 @@ export class DropComponent implements OnInit{
       this.items[index] = { ...updatedTask };
       this.saveItem();
   }
+
   deleteTask(){
       let selectedList: any[];
       switch (this.selectedTask.selectedProg) {
@@ -120,8 +121,38 @@ export class DropComponent implements OnInit{
         selectedList.splice(indexOfSelectedItem, 1);
       }
       this.saveItem();
-      this.genService.showEdit = false;
+      this.serv.showEdit = false;
     }
+
+  sortByTest(){
+    this.testItems.sort((a,b) => {
+      const nameA = a.selectedProd.toUpperCase();
+      const nameB = b.selectedProd.toUpperCase();
+      if (nameA > nameB) {
+        return -1;
+      } else if (nameA < nameB) {
+        return 1;
+      } else {
+        return 0;
+      };
+    })
+    this.saveItem()
+  }
+  sortByName(){
+    this.todoItems.sort((a,b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      } else if (nameA > nameB) {
+        return 1;
+      } else {
+        return 0;
+      };
+    })
+    this.saveItem()
+  }
+  
   drop(event: CdkDragDrop<string[]>, list: any){
     if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

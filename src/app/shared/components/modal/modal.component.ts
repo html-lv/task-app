@@ -12,6 +12,7 @@ export class ModalComponent {
 
   @Output() newItemEvent = new EventEmitter<any[]>();
   selectedProg = '';
+  selectedProd = '';
   itemForm: FormGroup;
   
 
@@ -19,20 +20,24 @@ export class ModalComponent {
     this.itemForm = new FormGroup({
       name: new FormControl('',[Validators.required,Validators.maxLength(15)]),
       description: new FormControl('', Validators.required),
-      status: new FormControl('',Validators.required),
+      // status: new FormControl('',Validators.required),
       // progress: new FormControl('',Validators.required)
     })
   }
   onProgressSelected(selectedProgress: string) {
     this.selectedProg = selectedProgress;
   }
+  onSelectedTask(selectedTest: string){
+    this.selectedProd = selectedTest
+  }
   task: any = {};
   tasks: any[] = [];
 
   addTask(){
+    this.task.selectedProd = this.selectedProd;
     this.task.progress = this.selectedProg;
+    console.log(this.task)
     if (this.itemForm.valid) {
-      console.log(this.task)
       this.newItemEvent.emit({ ...this.task });
       this.task = {};
       this.genSer.showModal = false;

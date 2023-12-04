@@ -15,6 +15,9 @@ export class WindowComponent {
   @Input() selectedTask: any; 
   @Output() taskUpdated = new EventEmitter<any>();
   @Output() taskDeleted = new EventEmitter<void>();
+  @Output() progressSelected = new EventEmitter<string>();
+  selectedProg = '';
+  selectedProd = '';
 
 
   isEdited = false;
@@ -29,6 +32,14 @@ export class WindowComponent {
 
   deleteTask() {
     this.taskDeleted.emit();
+  }
+
+
+  onProgressSelected(selectedProgress: string) {
+    this.selectedProg = selectedProgress;
+  }
+  onSelectedTask(selectedTest: string){
+    this.selectedProd = selectedTest
   }
 
 }
