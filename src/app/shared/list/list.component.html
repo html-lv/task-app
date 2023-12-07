@@ -1,48 +1,11 @@
-<app-window *ngIf="serv.showEdit" [dataToEdit]="items" [selectedTask]="selectedTask" (taskUpdated)="updateTask($event)" (taskDeleted)="deleteTask()"></app-window>
-<app-sorting [todoItems]="todoItems" [testItems]="testItems"  [prodItems]="prodItems" [inProgressItems]="inProgressItems" (sortEvent)="sortByName()" (sortEvent)="sortByTest()"></app-sorting>
+<app-window *ngIf="serv.showEdit" [dataToEdit]="items" [selectedTask]="selectedTask" (taskUpdated)="updateTask()" (taskDeleted)="deleteTask()"></app-window>
+<app-sorting [todoItems]="todoItems" [testItems]="testItems"  [prodItems]="prodItems" [inProgressItems]="inProgressItems"></app-sorting>
 <div class="h-fit w-full border border-gray-700 grid grid-cols-4" cdkDropListGroup>
-    <div
-        id="todo-list"
-        cdkDropList
-        [cdkDropListData]="todoItems"
-        (cdkDropListDropped)="drop($event,todoItems)"
-        class="border-2 border-gray-700 bg-white">
-        <div *ngFor="let item of todoItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-            <p>{{item.name}}</p>
-            <p>{{item.selectedProg}}</p> 
-        </div>
-    </div>
-          <div       
-              id="in-progress-list"
-              cdkDropList
-              [cdkDropListData]="inProgressItems"
-              (cdkDropListDropped)="drop($event,inProgressItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of inProgressItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300" >
-                  <p>{{item.name}}</p>
-                  <p>{{item.selectedProg}}</p> 
-              </div>
-          </div>
-          <div           
-              id="test-list"
-              cdkDropList
-              [cdkDropListData]="testItems"
-              (cdkDropListDropped)="drop($event,testItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of testItems| filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-                  <p>{{item.name}}</p>
-                  <p [ngStyle]="{'color': item.selectedProd === 'Test failed' ? 'red' : item.selectedProd === 'Test passed' ? 'green' : 'blue'}">{{item.selectedProd}}</p> 
-              </div>
-          </div>
-          <div      
-              id="prod-list"  
-              cdkDropList
-              [cdkDropListData]="prodItems"
-              (cdkDropListDropped)="drop($event,prodItems)"
-              class="border-2 border-gray-700 bg-white">
-              <div *ngFor="let item of prodItems| filterItems:makeSearch ; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex justify-between cursor-pointer border-2 border-gray-700 bg-gray-300">
-                  <p>{{item.name}}</p>
-                  <p>{{item.selectedProg}}</p> 
-            </div>
-    </div>
+    <app-visible-list [items]="todoItems | filterItems: makeSearch" [listId]="'todo-list'" (itemDropped)="drop($event, todoItems)" (itemSelected)="selectItem(todoItems, $event)"></app-visible-list>
+
+    <app-visible-list [items]="inProgressItems | filterItems: makeSearch" [listId]="'in-progress-list'" (itemDropped)="drop($event, inProgressItems)" (itemSelected)="selectItem(inProgressItems, $event)"></app-visible-list>
+
+    <app-visible-list [items]="testItems | filterItems: makeSearch" [listId]="'test-list'" (itemDropped)="drop($event, testItems)" (itemSelected)="selectItem(testItems, $event)"></app-visible-list>
+
+    <app-visible-list [items]="prodItems | filterItems: makeSearch" [listId]="'prod-list'" (itemDropped)="drop($event, prodItems)" (itemSelected)="selectItem(prodItems, $event)"></app-visible-list>
 </div>

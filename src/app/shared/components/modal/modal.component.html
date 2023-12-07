@@ -4,26 +4,26 @@
         <p>Add Task</p>
     </div>
     <div class="h-fit grid-rows-4">
-        <div class="">
-            <p class="text-center">Task</p>
-            <input type="text" formControlName="name" class="w-full border-2 border-gray-900 h-[50px]" id="name" name="name" required [(ngModel)]="task.name">
+        <div class="flex flex-col relative">
+                <label class="text-center">Task</label>
+                <input type="text" formControlName="name" class="w-full border-2 border-gray-900 h-[50px]" id="name" name="name" required [(ngModel)]="task.name">
             <div *ngIf="itemForm.controls['name'].invalid && (itemForm.controls['name'].touched || itemForm.controls['name'].dirty)">
                 <div *ngIf="itemForm.controls['name'].hasError('required')">
-                    <p class="text-center text-red-500">Name of the task is required</p>
+                    <p class="text-center text-red-400 absolute bottom-0 right-0 left-0">Name of the task is required</p>
                 </div>
             </div>
         </div>
         <app-select [selectedProgress]="selectedProg" [selectedStatus]="selectedProd"  [showProgress]="true" (progressSelected)="onProgressSelected($event)" name="progress"></app-select>
-        <div class="">
-            <p class="text-center">Test description</p>
-            <input formControlName="description" type="text" class="w-full border-2 border-gray-900 h-[50px]" id="description" name="description" [(ngModel)]="task.description" required>
-            <div *ngIf="itemForm.controls['description'].invalid && (itemForm.controls['description'].touched || itemForm.controls['description'].dirty)">
-                <div *ngIf="itemForm.controls['description'].hasError('required')">
-                    <p class="text-center text-red-500">Description of the task required</p>
+        <div class="flex flex-col relative">
+                <label class="text-center">Test description</label>
+                <input formControlName="description" type="text" class="w-full border-2 border-gray-900 h-[50px]" id="description" name="description" [(ngModel)]="task.description" required>
+                <div *ngIf="itemForm.controls['description'].invalid && (itemForm.controls['description'].touched || itemForm.controls['description'].dirty)">
+                    <div *ngIf="itemForm.controls['description'].hasError('required')">
+                        <p class="text-center text-red-400 absolute bottom-0 right-0 left-0">Description of the task required</p>
+                    </div>
                 </div>
-            </div>
         </div>
-        <app-select [selectedStatus]="selectedProd"  [selectedProgress]="selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
+        <app-select [selectedStatus]="selectedProd" [selectedProgress]="selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
     </div>
     <div class="h-[10%] flex items-center justify-center gap-5 mt-5">
         <button class="border-2 border-gray-900 bg-green-500 px-3 py-2" type="submit">Add</button>
@@ -31,3 +31,14 @@
     </div>
  </form>
  </div>
+
+<!-- 
+ <div class="">
+    <p class="text-center">Task</p>
+    <input type="text" formControlName="name" class="w-full border-2 border-gray-900 h-[50px]" id="name" name="name" required [(ngModel)]="task.name">
+    <div *ngIf="itemForm.controls['name'].invalid && (itemForm.controls['name'].touched || itemForm.controls['name'].dirty)">
+        <div *ngIf="itemForm.controls['name'].hasError('required')">
+            <p class="text-center text-red-500">Name of the task is required</p>
+        </div>
+    </div>
+</div> -->

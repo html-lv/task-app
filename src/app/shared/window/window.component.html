@@ -10,27 +10,23 @@
         </div>
         <div *ngIf="selectedTask" class="grid grid-row-4 text-center gap-4">
           <div class="border border-gray-900 p-1">
-            <p>Name of the task</p>
-            <p>{{ selectedTask.name }}</p>
-            <input type="text" class="w-full border-2 border-gray-900" *ngIf="isEdited" [(ngModel)]="selectedTask.name" name="name">
+            <p>New task name</p>
+            <input type="text" class="w-full border-2 border-gray-900" *ngIf="isEdited" [(ngModel)]="selectedTaskName" name="name">
           </div>
           <div class="border border-gray-900 p-1">
-            <p>Task description</p>
-            <p>{{ selectedTask.description }}</p>
+            <p>New task description</p>
             <input type="text" class="w-full border-2 border-gray-900" *ngIf="isEdited" [(ngModel)]="selectedTask.description" name="progress">
           </div>
           <div class="border border-gray-900 p-1"> 
             <p>Task progress</p>
-            <p>{{ selectedTask.selectedProg }}</p>
-            <div *ngIf="isEdited">
-              <app-select [selectedProgress]="selectedProg" [selectedStatus]="selectedProd"  [showProgress]="true" (progressSelected)="onProgressSelected($event)" name="progress"></app-select>
+            <div *ngIf="">
+              <app-select [selectedProgress]="selectedTask.selectedProg" [selectedStatus]="selectedTask.selectedProd" [showProgress]="true" name="progress"></app-select>
             </div>
           </div>
           <div class="border border-gray-900 p-1">
             <p>Task status</p>
-            <p>{{ selectedTask.selectedProd }}</p>
             <div *ngIf="isEdited">
-              <app-select [selectedStatus]="selectedProd"  [selectedProgress]="selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
+              <app-select [selectedStatus]="selectedTask.selectedProd" [selectedProgress]="selectedTask.selectedProg" [showTask]="true" (progressSelected)="onSelectedTask($event)" name="status"></app-select>
             </div>
           </div>
         </div>

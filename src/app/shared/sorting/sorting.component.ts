@@ -31,10 +31,11 @@ export class SortingComponent {
       return 0;
     }
   });
-  this.sortEvent.emit(this.testItems);
   this.saveItem();
+  this.sortEvent.emit(this.testItems);
 }
 sortByName() {
+  console.log(this.todoItems);
   this.todoItems.sort((a, b) => {
     const nameA = a.name.toUpperCase();
     const nameB = b.name.toUpperCase();
@@ -46,40 +47,27 @@ sortByName() {
       return 0;
     }
   });
-  this.sortEvent.emit(this.todoItems);
   this.saveItem();
+  this.sortEvent.emit(this.todoItems);
 }
-  addItems(newItem: any){
-    switch (newItem.progress) {
-      case 'Task need to do':
-        newItem.selectedProg = 'Task need to do'
-        this.todoItems = [...this.todoItems, newItem];
-        break;
-      case 'Task in progress':
-        newItem.selectedProg = 'Task in progress'
-        this.inProgressItems = [...this.inProgressItems, newItem];
-        break;
-      case 'Task is done':
-        newItem.selectedProg = 'Task is done'
-        this.testItems = [...this.testItems, newItem];
-        break;
-      case 'Task in production':
-        newItem.selectedProg = 'Task in production'
-        this.prodItems = [...this.prodItems, newItem];
-        break;
-    }
-    this.saveItem();
-  }
   private saveItem() {
+    this.todoItems = this.todoItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
+    this.inProgressItems = this.inProgressItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
+    this.testItems = this.testItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
+    this.prodItems = this.prodItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
+  
+    this.items = [
+      ...this.todoItems,
+      ...this.inProgressItems,
+      ...this.testItems,
+      ...this.prodItems
+    ];
+  
     localStorage.setItem('key', JSON.stringify(this.items));
     localStorage.setItem('todo', JSON.stringify(this.todoItems));
     localStorage.setItem('inProgress', JSON.stringify(this.inProgressItems));
     localStorage.setItem('test', JSON.stringify(this.testItems));
     localStorage.setItem('prod', JSON.stringify(this.prodItems));
-    this.todoItems = this.todoItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
-    this.inProgressItems = this.inProgressItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
-    this.testItems = this.testItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
-    this.prodItems = this.prodItems.filter(item => item.name.toLowerCase().includes(this.makeSearch.toLowerCase()));
   }
   private loadItem() {
     const store = localStorage.getItem('key');

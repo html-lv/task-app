@@ -1,0 +1,18 @@
+<div
+  [id]="listId"
+  cdkDropList
+  [cdkDropListData]="items"
+  (cdkDropListDropped)="drop($event)"
+  class="border-2 border-gray-700 bg-white max-h-[400px] overflow-hidden overflow-y-auto"
+>
+  <div *ngFor="let item of items | filterItems: makeSearch; let i = index" cdkDrag (click)="selectItem(item, i)" class="p-2 flex cursor-pointer border-2 border-gray-700 bg-gray-300">
+    <div *ngIf="listId !== 'test-list'" class="flex flex-row justify-between items-center w-full h-full">
+      <p>{{item.name}}</p>
+      <p>{{item.selectedProg}}</p>
+    </div>
+    <div *ngIf="listId === 'test-list'" class="flex flex-row justify-between items-center w-full h-full">
+        <p>{{item.name}}</p>
+        <p [ngStyle]="{'color': item.selectedProd === 'Test failed' ? 'red' : item.selectedProd === 'Test passed' ? 'green' : 'blue'}">{{item.selectedProd}}</p>
+    </div>
+  </div>
+</div>

@@ -13,9 +13,11 @@ export class WindowComponent {
 
   @Input() dataToEdit:any;
   @Input() selectedTask: any; 
+  @Input() selectedTaskName = '';
   @Output() taskUpdated = new EventEmitter<any>();
   @Output() taskDeleted = new EventEmitter<void>();
   @Output() progressSelected = new EventEmitter<string>();
+
   selectedProg = '';
   selectedProd = '';
 
@@ -27,10 +29,21 @@ export class WindowComponent {
   }
 
   updateTask() {
-    this.taskUpdated.emit(this.selectedTask);
-  }
+    if(this.selectedTaskName === ''){
+      this.selectedTaskName
+    } else {
+      console.log(this.selectedTaskName);
+      console.log(this.selectedProd)
+      console.log(this.selectedTask)
+      this.selectedTask.selectedProd = this.selectedProd
+      this.selectedTask.name = this.selectedTaskName
+      this.taskUpdated.emit();
+    }
+
+}
 
   deleteTask() {
+    console.log(this.selectedTask)
     this.taskDeleted.emit();
   }
 
@@ -41,5 +54,4 @@ export class WindowComponent {
   onSelectedTask(selectedTest: string){
     this.selectedProd = selectedTest
   }
-
 }

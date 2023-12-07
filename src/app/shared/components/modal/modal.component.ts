@@ -18,7 +18,7 @@ export class ModalComponent {
 
   constructor(public genSer: GenService){
     this.itemForm = new FormGroup({
-      name: new FormControl('',[Validators.required,Validators.maxLength(15)]),
+      name: new FormControl('',[Validators.required,Validators.maxLength(15),Validators.pattern('^[a-zA-Z]+$')]),
       description: new FormControl('', Validators.required),
       // status: new FormControl('',Validators.required),
       // progress: new FormControl('',Validators.required)
@@ -36,8 +36,9 @@ export class ModalComponent {
   addTask(){
     this.task.selectedProd = this.selectedProd;
     this.task.progress = this.selectedProg;
-    console.log(this.task)
+    console.log(this.task.selectedProd)
     if (this.itemForm.valid) {
+      console.log(this.task)
       this.newItemEvent.emit({ ...this.task });
       this.task = {};
       this.genSer.showModal = false;
@@ -45,4 +46,5 @@ export class ModalComponent {
       console.error('Error');
     }
   }
+  
 }

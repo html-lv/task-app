@@ -11,7 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropComponent } from './shared/drop/drop.component';
 import { FilterItemsPipe } from './filter-items.pipe';
-import { SelectorComponent } from './shared/window/selector/selector.component';
+import { SelectorComponent } from './shared/selector/selector.component';
+import { ListComponent } from './shared/list/list.component';
+import { SortingComponent } from './shared/sorting/sorting.component';
+import { VisibleListComponent } from './shared/visible-list/visible-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { SelectorComponent } from './shared/window/selector/selector.component';
     DropComponent,
     FilterItemsPipe,
     SelectorComponent,
+    ListComponent,
+    SortingComponent,
+    VisibleListComponent
   ],
   imports: [
     BrowserModule,

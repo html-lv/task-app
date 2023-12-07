@@ -17,11 +17,16 @@
     </div>
     <div class="w-full h-fit py-2 border-x-2 border-gray-700 flex justify-center items-center">
       <div>
-        <input type="text" class="border-2 border-gray-700 p-2 px-10" placeholder="Search..." [(ngModel)]="makeSearch">
+        <input type="text" class="border-2 border-gray-700 p-2 px-10 text-center" placeholder="Press enter" [(ngModel)]="makeSearch" (change)="searchMatch(makeSearch)">
       </div>
     </div>
   <div>
     <app-list [makeSearch]="makeSearch" [todoItems]="todoItems" [inProgressItems]="inProgressItems" [testItems]="testItems" [prodItems]="prodItems"></app-list>
+    <div *ngIf="anyMatches" class="flex justify-center items-center">
+      <div *ngIf="matchingItems.length === 0">
+          <p class="text-red-500">No matches found.</p>
+      </div>
+    </div>
   </div>
 </div>
 </div>
